@@ -87,16 +87,3 @@ print(f'It took you {Style.BRIGHT}{Fore.CYAN}{guesses}{Style.RESET_ALL} guesses\
       f' {Style.BRIGHT}{Fore.RED}{blank} blank guesses.{Style.RESET_ALL}\n\n'
       f'Guess Log: {Style.BRIGHT}{Fore.YELLOW}{" ".join(guess_log)}\n')
 colorama.deinit()
-# Todo: make the guess_log  = index,input,status,counters.
-# Todo:..so when they enter a dupe we can say " x # is STILL not the right answer!, or you already got that one.
-# todo: uses the guess log to determine what color to display guess. you alreay guessed X with x green if it was correct
-# Todo: possibly put variables into a dict or something similar.
-# Todo: need a word list to cycle through randomly for mystery_word
-# Todo: make a separate list of funny ways respond to incorrect guesses, and cycle through randomly.
-# Todo: give option to restart game at end with a new word.
-# Todo: implement a score using multipliers based on integer variables.
-# Todo: get name, and save high scores with all stats including contents of input_log
-# Todo: colorize output strings based on type correct incorrect etc.
-# Todo: add hint feature to reveal one letter. put a cap on use
-# Todo: add log keyword to print guesses so far.only log correct and incorrect guesses no invalid, empty or dupe. sort alpa
-# Todo: ability to guess substrings. may be downsides
