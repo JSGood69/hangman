@@ -9,10 +9,10 @@ The initial master branch commit of hangman.py is a fully functional version wit
 
 I will be growing this project as time goes on by implementing features documented in he issue log.
 
-This is a personal learning project for now. I will only be commiting my own code to this repo.
-I made this a public repository so others could view, clone, or downlod the code to play with.
+This is a personal learning project for now. I will only be committing my own code to this repo.
+I made this a public repository so others could view, clone, or download the code to play with.
 
-As I mentioned before, the entire point of this project is for me to learn, so in that spirt, your comments and suggestions are encuraged and appreciated! 
+As I mentioned before, the entire point of this project is for me to learn, so in that spirit, your comments and suggestions are encuraged and appreciated! 
 
 Disclaimer:
 I am not new to programming, but I am new to Python, and github, and I am learning best practices as I go.
