@@ -1,15 +1,24 @@
 # a simple guess the word game.
 # built from scratch as a python 3.6 learning exercise
 # James Good 6/27/2018
-
+import pickle
 import random
+
 import colorama
 from colorama import Fore, Back, Style
 
 colorama.init(autoreset=True)
 
-word_list = ['learning', 'python', 'script', 'study', 'program', 'structure', 'class', 'function', 'variable', 'syntax']
-mystery_word = str(random.choice(word_list)).upper()
+master_word_list = ['LEARNING', 'PYTHON', 'SCRIPT', 'STUDY', 'PROGRAM', 'STRUCTURE', 'CLASS', 'FUNCTION', 'VARIABLE', 'SYNTAX']
+
+try:
+    with open('word_list.pickle', 'rb') as p_file:
+        word_list = pickle.load(p_file)
+        p_file.close()
+except:
+    word_list = random.sample(master_word_list, len(master_word_list))
+
+mystery_word = word_list.pop()
 mystery_list = list(mystery_word)
 mystery_len = len(mystery_list)
 found_list = list('_' * mystery_len)
@@ -28,7 +37,8 @@ prompt = 'Guess a letter.'
 # main
 print(f'\nGuess one letter at a time, or try to guess the whole word at any time.\n'
       f'Type "exit" quit.\n\n'
-      f'The mystery word contains {mystery_len} letters.')
+      f'The mystery word contains {Style.BRIGHT}{Fore.GREEN}{Back.BLACK}{mystery_len}{Style.RESET_ALL} letters.')
+
 while found < mystery_len:
     print(f'{Style.BRIGHT}{Fore.CYAN}{Back.BLACK}[ {" ".join(found_list)} ]{Style.RESET_ALL}  {prompt} > ', end='')
     guess = str(input()).strip()
@@ -77,6 +87,7 @@ while found < mystery_len:
 
 print(f'{Style.BRIGHT}{Fore.CYAN}{Back.BLACK}[ {" ".join(mystery_list)} ]{Style.RESET_ALL}  '
       f'You guessed it! The mystery word was {Style.BRIGHT}{Fore.GREEN}{mystery_word}!\n')
+
 print(f'It took you {Style.BRIGHT}{Fore.CYAN}{guesses}{Style.RESET_ALL} guesses\'s.\n'
       f' {Style.BRIGHT}{Fore.GREEN}{correct_word} correct word guesses.\n'
       f' {Style.BRIGHT}{Fore.GREEN}{correct} correct letter guesses.\n'
@@ -86,4 +97,15 @@ print(f'It took you {Style.BRIGHT}{Fore.CYAN}{guesses}{Style.RESET_ALL} guesses\
       f' {Style.BRIGHT}{Fore.RED}{invalid} invalid guesses.\n'
       f' {Style.BRIGHT}{Fore.RED}{blank} blank guesses.{Style.RESET_ALL}\n\n'
       f'Guess Log: {Style.BRIGHT}{Fore.YELLOW}{" ".join(guess_log)}\n')
+
 colorama.deinit()
+
+if not word_list:
+    word_list = random.sample(master_word_list, len(master_word_list))
+# write pickle data
+try:
+    with open('word_list.pickle', 'wb') as p_file:
+        pickle.dump(word_list, p_file)
+        p_file.close()
+except:
+    print(f'{Style.BRIGHT}{Fore.YELLOW}Error saving word list.')
