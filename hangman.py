@@ -97,8 +97,6 @@ print(f'It took you {Style.BRIGHT}{Fore.CYAN}{guesses}{Style.RESET_ALL} guesses\
       f' {Style.BRIGHT}{Fore.RED}{blank} blank guesses.{Style.RESET_ALL}\n\n'
       f'Guess Log: {Style.BRIGHT}{Fore.YELLOW}{" ".join(guess_log)}\n')
 
-colorama.deinit()
-
 if not word_list:
     word_list = random.sample(master_word_list, len(master_word_list))
 
@@ -107,3 +105,5 @@ try:
         pickle.dump(word_list, p_file)
 except:
     print(f'{Style.BRIGHT}{Fore.YELLOW}Error saving word list.')
+
+colorama.deinit()
