@@ -14,7 +14,6 @@ master_word_list = ['LEARNING', 'PYTHON', 'SCRIPT', 'STUDY', 'PROGRAM', 'STRUCTU
 try:
     with open('word_list.pickle', 'rb') as p_file:
         word_list = pickle.load(p_file)
-        p_file.close()
 except:
     word_list = random.sample(master_word_list, len(master_word_list))
 
@@ -23,7 +22,7 @@ mystery_list = list(mystery_word)
 mystery_len = len(mystery_list)
 found_list = list('_' * mystery_len)
 guess_log = list()
-# counters and such
+
 found = 0
 guesses = 0
 correct = 0
@@ -34,7 +33,7 @@ blank = 0
 correct_word = 0
 incorrect_word = 0
 prompt = 'Guess a letter.'
-# main
+
 print(f'\nGuess one letter at a time, or try to guess the whole word at any time.\n'
       f'Type "exit" quit.\n\n'
       f'The mystery word contains {Style.BRIGHT}{Fore.GREEN}{Back.BLACK}{mystery_len}{Style.RESET_ALL} letters.')
@@ -102,10 +101,9 @@ colorama.deinit()
 
 if not word_list:
     word_list = random.sample(master_word_list, len(master_word_list))
-# write pickle data
+
 try:
     with open('word_list.pickle', 'wb') as p_file:
         pickle.dump(word_list, p_file)
-        p_file.close()
 except:
     print(f'{Style.BRIGHT}{Fore.YELLOW}Error saving word list.')
