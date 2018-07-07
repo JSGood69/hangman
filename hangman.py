@@ -34,8 +34,8 @@ correct_word = 0
 incorrect_word = 0
 prompt = 'Guess a letter.'
 
-print(f'\nGuess one letter at a time, or try to guess the whole word at any time.\n'
-      f'Type "exit" quit.\n\n'
+print(f'\nGuess one letter at a time, or try to guess the whole word at any time.\n\n'
+      f'Type {Style.BRIGHT}{Fore.YELLOW}exit{Style.RESET_ALL} to quit.\n\n'
       f'The mystery word contains {Style.BRIGHT}{Fore.GREEN}{Back.BLACK}{mystery_len}{Style.RESET_ALL} letters.')
 
 while found < mystery_len:
