@@ -9,14 +9,14 @@ import colorama
 from colorama import Fore, Style
 
 colorama.init(autoreset=True)
-color = {'green':Style.BRIGHT+Fore.GREEN,
-         'yellow':Style.BRIGHT+Fore.YELLOW,
-         'cyan':Style.BRIGHT+Fore.CYAN,
-         'red':Style.BRIGHT+Fore.RED,
-         'reset':Style.RESET_ALL}
-status_color = {'correct':color["green"], 'correct_word':color["green"],
-         'incorrect':color["yellow"], 'incorrect_word':color["yellow"],
-         'duplicate':color["cyan"], 'invalid':color["red"]}
+color = {'green': Style.BRIGHT+Fore.GREEN,
+         'yellow': Style.BRIGHT+Fore.YELLOW,
+         'cyan': Style.BRIGHT+Fore.CYAN,
+         'red': Style.BRIGHT+Fore.RED,
+         'reset': Style.RESET_ALL}
+status_color = {'correct': color["green"], 'correct_word': color["green"],
+                'incorrect': color["yellow"], 'incorrect_word': color["yellow"],
+                'duplicate': color["cyan"], 'invalid': color["red"]}
 master_word_list = ['LEARNING', 'PYTHON', 'SCRIPT', 'STUDY', 'PROGRAM', 'STRUCTURE', 'CLASS', 'FUNCTION', 'VARIABLE', 'SYNTAX']
 
 try:
@@ -32,22 +32,22 @@ found_list = list('_' * mystery_len)
 guess_log = list()
 status_log = list()
 print_log = list()
-prompt = 'Guess a letter, or guess the word.' # initial prompt
+prompt = 'Guess a letter, or guess the word.'  # initial prompt
 
-print(f'\n{Style.BRIGHT}{Fore.YELLOW}Guess the Mystery Word!{Style.RESET_ALL}\n'
+print(f'\n{color["yellow"]}Guess the Mystery Word!{color["reset"]}\n'
       f'You can guess one letter at a time, or try to guess the whole word.\n'
-      f'Type {Style.BRIGHT}{Fore.YELLOW}exit{Style.RESET_ALL} to quit without guessing the word.\n\n'
-      f'The mystery word contains {Style.BRIGHT}{Fore.YELLOW}{mystery_len}{Style.RESET_ALL} letters.')
+      f'Type {color["yellow"]}exit{color["reset"]} to quit without guessing the word.\n\n'
+      f'The mystery word contains {color["yellow"]}{mystery_len}{color["reset"]} letters.')
 
 while found_list != mystery_list:
-    print(f'{Style.BRIGHT}{Fore.GREEN}[ {" ".join(found_list)} ]{Style.RESET_ALL}  {prompt} > ', end='')
+    print(f'{color["green"]}[ {" ".join(found_list)} ]{color["reset"]}  {prompt} > ', end='')
     guess = str(input()).strip()
     if str(guess).isalpha():
         guess = str(guess).upper()
         if guess in guess_log:
             guess_log.append(guess)
             status_log.append('duplicate') 
-            prompt = f'You already guessed {Style.BRIGHT}{Fore.CYAN}{guess}{Style.RESET_ALL}.'
+            prompt = f'You already guessed {color["cyan"]}{guess}{color["reset"]}.'
             continue
         if len(guess) == 1:
             guess_log.append(guess)
@@ -56,45 +56,45 @@ while found_list != mystery_list:
                     if letter == guess:
                         found_list[index] = guess
                 status_log.append('correct')
-                prompt = f'Correct!! {Style.BRIGHT}{Fore.GREEN}{guess}{Style.RESET_ALL} was a match!'
+                prompt = f'Correct!! {color["green"]}{guess}{color["reset"]} was a match!'
             else:
                 status_log.append('incorrect') 
-                prompt = f'Sorry, no {Style.BRIGHT}{Fore.YELLOW}{guess}{Style.RESET_ALL}. Try again.'
+                prompt = f'Sorry, no {color["yellow"]}{guess}{color["reset"]}. Try again.'
         elif len(guess) > 1:
             if guess == mystery_word:
                 guess_log.append(guess)
                 status_log.append('correct_word')
                 break
             elif guess == 'EXIT':
-                print(f'\n{Style.BRIGHT}{Fore.YELLOW}Goodbye.\n')
+                print(f'\n{color["yellow"]}Goodbye.\n')
                 colorama.deinit()
                 quit()
             else:
                 guess_log.append(guess)
                 status_log.append('incorrect_word')
-                prompt = f'Sorry, {Style.BRIGHT}{Fore.YELLOW}{guess}{Style.RESET_ALL} is not the mystery word.'
+                prompt = f'Sorry, {color["yellow"]}{guess}{color["reset"]} is not the mystery word.'
                 continue
     else:
         if len(guess) == 0:
-            prompt = f'{Style.BRIGHT}{Fore.RED}No input detected.'
+            prompt = f'{color["red"]}No input detected.'
             continue
         else:
-            prompt = f'{Style.BRIGHT}{Fore.RED}{guess}{Style.RESET_ALL} is not a valid input.'
+            prompt = f'{color["red"]}{guess}{color["reset"]} is not a valid input.'
             status_log.append('invalid')
             guess_log.append(guess)
             continue
 
-print(f'{Style.BRIGHT}{Fore.GREEN}[ {" ".join(mystery_list)} ]{Style.RESET_ALL}  '
-      f'You guessed it! The mystery word was {Style.BRIGHT}{Fore.GREEN}{mystery_word}{Style.RESET_ALL}!\n')
+print(f'{color["green"]}[ {" ".join(mystery_list)} ]{color["reset"]}  '
+      f'You guessed it! The mystery word was {color["green"]}{mystery_word}{color["reset"]}!\n')
 
 count = Counter(status_log)
-print(f'It took you {Style.BRIGHT}{Fore.YELLOW}{len(status_log)}{Style.RESET_ALL} guesses.\n'
-      f' {Style.BRIGHT}{Fore.GREEN}{count["correct"]} correct letter guesses.\n'
-      f' {Style.BRIGHT}{Fore.GREEN}{count["correct_word"]} correct word guesses.\n'
-      f' {Style.BRIGHT}{Fore.YELLOW}{count["incorrect"]} incorrect letter guesses.\n'
-      f' {Style.BRIGHT}{Fore.YELLOW}{count["incorrect_word"]} incorrect word guesses.\n'
-      f' {Style.BRIGHT}{Fore.CYAN}{count["duplicate"]} duplicate guesses.\n'
-      f' {Style.BRIGHT}{Fore.RED}{count["invalid"]} invalid guesses.{Style.RESET_ALL}\n')
+print(f'It took you {color["yellow"]}{len(status_log)}{color["reset"]} guesses.\n'
+      f' {color["green"]}{count["correct"]} correct letter guesses.\n'
+      f' {color["green"]}{count["correct_word"]} correct word guesses.\n'
+      f' {color["yellow"]}{count["incorrect"]} incorrect letter guesses.\n'
+      f' {color["yellow"]}{count["incorrect_word"]} incorrect word guesses.\n'
+      f' {color["cyan"]}{count["duplicate"]} duplicate guesses.\n'
+      f' {color["red"]}{count["invalid"]} invalid guesses.{color["reset"]}\n')
 
 game_log = list(zip(guess_log, status_log, list(range(len(status_log)))))
 
@@ -115,6 +115,6 @@ try:
     with open('word_list.pickle', 'wb') as p_file:
         pickle.dump(word_list, p_file)
 except:
-    print(f'{Style.BRIGHT}{Fore.YELLOW}Error saving word list.')
+    print(f'{color["yellow"]}Error saving word list.')
 
 colorama.deinit()
