@@ -24,6 +24,7 @@ mystery_len = len(mystery_list)
 found_list = list('_' * mystery_len)
 guess_log = list()
 status_log = list()
+print_log = list()
 
 print(f'\n{Style.BRIGHT}{Fore.CYAN}Guess the Mystery Word!{Style.RESET_ALL}\n'
       f'You can one letter at a time, or try to guess the whole word at any time.\n\n'
@@ -81,7 +82,7 @@ print(f'{Style.BRIGHT}{Fore.GREEN}{Back.BLACK}[ {" ".join(mystery_list)} ]{Style
       f'You guessed it! The mystery word was {Style.BRIGHT}{Fore.GREEN}{mystery_word}{Style.RESET_ALL}!\n')
 
 count = Counter(status_log)
-print(f'It took you {Style.BRIGHT}{Fore.CYAN}{len(status_log)}{Style.RESET_ALL} guesses\'s.\n'
+print(f'It took you {Style.BRIGHT}{Fore.CYAN}{len(status_log)}{Style.RESET_ALL} guesses.\n'
       f' {Style.BRIGHT}{Fore.GREEN}{count["correct_word"]} correct word guesses.\n'
       f' {Style.BRIGHT}{Fore.GREEN}{count["correct"]} correct letter guesses.\n'
       f' {Style.BRIGHT}{Fore.YELLOW}{count["incorrect_word"]} incorrect word guesses.\n'
@@ -89,7 +90,17 @@ print(f'It took you {Style.BRIGHT}{Fore.CYAN}{len(status_log)}{Style.RESET_ALL} 
       f' {Style.BRIGHT}{Fore.YELLOW}{count["duplicate"]} duplicate guesses.\n'
       f' {Style.BRIGHT}{Fore.RED}{count["invalid"]} invalid guesses.{Style.RESET_ALL}\n')
 
-print(f'Guess Log: {Style.BRIGHT}{Fore.YELLOW}{" ".join(guess_log)}\n')
+for index, status in enumerate(status_log):
+    if status == 'correct' or status == 'correct_word':
+        print_log.append(f'{Style.BRIGHT}{Fore.GREEN}{guess_log[index]}')
+    elif status == 'incorrect' or status == 'incorrect_word':
+        print_log.append(f'{Style.BRIGHT}{Fore.YELLOW}{guess_log[index]}')
+    elif status == 'invalid':
+        print_log.append(f'{Style.BRIGHT}{Fore.RED}{guess_log[index]}')
+    else:
+        print_log.append(f'{Style.RESET_ALL}{guess_log[index]}')
+
+print(f'Guess Log: {" ".join(print_log)}\n')
 
 if not word_list:
     word_list = random.sample(master_word_list, len(master_word_list))
