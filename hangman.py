@@ -9,7 +9,14 @@ import colorama
 from colorama import Fore, Style
 
 colorama.init(autoreset=True)
-
+color = {'green':Style.BRIGHT+Fore.GREEN,
+         'yellow':Style.BRIGHT+Fore.YELLOW,
+         'cyan':Style.BRIGHT+Fore.CYAN,
+         'red':Style.BRIGHT+Fore.RED,
+         'reset':Style.RESET_ALL}
+status_color = {'correct':color["green"], 'correct_word':color["green"],
+         'incorrect':color["yellow"], 'incorrect_word':color["yellow"],
+         'duplicate':color["cyan"], 'invalid':color["red"]}
 master_word_list = ['LEARNING', 'PYTHON', 'SCRIPT', 'STUDY', 'PROGRAM', 'STRUCTURE', 'CLASS', 'FUNCTION', 'VARIABLE', 'SYNTAX']
 
 try:
@@ -89,19 +96,17 @@ print(f'It took you {Style.BRIGHT}{Fore.YELLOW}{len(status_log)}{Style.RESET_ALL
       f' {Style.BRIGHT}{Fore.CYAN}{count["duplicate"]} duplicate guesses.\n'
       f' {Style.BRIGHT}{Fore.RED}{count["invalid"]} invalid guesses.{Style.RESET_ALL}\n')
 
-for index, status in enumerate(status_log):
-    if status == 'correct' or status == 'correct_word':
-        print_log.append(f'{Style.BRIGHT}{Fore.GREEN}{guess_log[index]}')
-    elif status == 'incorrect' or status == 'incorrect_word':
-        print_log.append(f'{Style.BRIGHT}{Fore.YELLOW}{guess_log[index]}')
-    elif status == 'duplicate':
-        print_log.append(f'{Style.BRIGHT}{Fore.CYAN}{guess_log[index]}')
-    elif status == 'invalid':
-        print_log.append(f'{Style.BRIGHT}{Fore.RED}{guess_log[index]}')
-    else:
-        print_log.append(f'{Style.RESET_ALL}{guess_log[index]}')
+game_log = list(zip(guess_log, status_log, list(range(len(status_log)))))
 
-print(f'Guess Log: {" ".join(print_log)}\n')
+print('Guess Log: ', end='')
+for g, s, i in sorted(game_log, key=lambda tup: tup[2]):
+    print(f'{status_color[s]}{g} ', end='', flush=True)
+print('\n')
+
+print('A-Z Guess: ', end='')
+for g, s, i in sorted(game_log, key=lambda tup: (tup[0], tup[2])):
+    print(f'{status_color[s]}{g} ', end='', flush=True)
+print('\n')
 
 if not word_list:
     word_list = random.sample(master_word_list, len(master_word_list))
