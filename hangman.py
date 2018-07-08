@@ -6,7 +6,7 @@ import random
 from collections import Counter
 
 import colorama
-from colorama import Fore, Back, Style
+from colorama import Fore, Style
 
 colorama.init(autoreset=True)
 
@@ -25,23 +25,22 @@ found_list = list('_' * mystery_len)
 guess_log = list()
 status_log = list()
 print_log = list()
+prompt = 'Guess a letter, or guess the word.' # initial prompt
 
-print(f'\n{Style.BRIGHT}{Fore.CYAN}Guess the Mystery Word!{Style.RESET_ALL}\n'
-      f'You can one letter at a time, or try to guess the whole word at any time.\n\n'
-      f'Type {Style.BRIGHT}{Fore.CYAN}exit{Style.RESET_ALL} to quit.\n\n'
-      f'The mystery word contains {Style.BRIGHT}{Fore.CYAN}{Back.BLACK}{mystery_len}{Style.RESET_ALL} letters.')
-print(f'{Style.BRIGHT}{Fore.GREEN}{Back.BLACK}[ {" ".join(found_list)} ]{Style.RESET_ALL}  '
-      f'{Style.BRIGHT}{Fore.CYAN}<-- Correct guesses will populate the Mystery Word here.')
-prompt = 'Guess a letter, or guess the word.'
+print(f'\n{Style.BRIGHT}{Fore.YELLOW}Guess the Mystery Word!{Style.RESET_ALL}\n'
+      f'You can guess one letter at a time, or try to guess the whole word.\n'
+      f'Type {Style.BRIGHT}{Fore.YELLOW}exit{Style.RESET_ALL} to quit without guessing the word.\n\n'
+      f'The mystery word contains {Style.BRIGHT}{Fore.YELLOW}{mystery_len}{Style.RESET_ALL} letters.')
+
 while found_list != mystery_list:
-    print(f'{Style.BRIGHT}{Fore.GREEN}{Back.BLACK}[ {" ".join(found_list)} ]{Style.RESET_ALL}  {prompt} > ', end='')
+    print(f'{Style.BRIGHT}{Fore.GREEN}[ {" ".join(found_list)} ]{Style.RESET_ALL}  {prompt} > ', end='')
     guess = str(input()).strip()
     if str(guess).isalpha():
         guess = str(guess).upper()
         if guess in guess_log:
             guess_log.append(guess)
             status_log.append('duplicate') 
-            prompt = f'You already guessed {Style.BRIGHT}{Fore.YELLOW}{guess}{Style.RESET_ALL}.'
+            prompt = f'You already guessed {Style.BRIGHT}{Fore.CYAN}{guess}{Style.RESET_ALL}.'
             continue
         if len(guess) == 1:
             guess_log.append(guess)
@@ -60,7 +59,7 @@ while found_list != mystery_list:
                 status_log.append('correct_word')
                 break
             elif guess == 'EXIT':
-                print(f'\n{Style.BRIGHT}{Fore.BLUE}Goodbye.')
+                print(f'\n{Style.BRIGHT}{Fore.YELLOW}Goodbye.\n')
                 colorama.deinit()
                 quit()
             else:
@@ -78,16 +77,16 @@ while found_list != mystery_list:
             guess_log.append(guess)
             continue
 
-print(f'{Style.BRIGHT}{Fore.GREEN}{Back.BLACK}[ {" ".join(mystery_list)} ]{Style.RESET_ALL}  '
+print(f'{Style.BRIGHT}{Fore.GREEN}[ {" ".join(mystery_list)} ]{Style.RESET_ALL}  '
       f'You guessed it! The mystery word was {Style.BRIGHT}{Fore.GREEN}{mystery_word}{Style.RESET_ALL}!\n')
 
 count = Counter(status_log)
-print(f'It took you {Style.BRIGHT}{Fore.CYAN}{len(status_log)}{Style.RESET_ALL} guesses.\n'
-      f' {Style.BRIGHT}{Fore.GREEN}{count["correct_word"]} correct word guesses.\n'
+print(f'It took you {Style.BRIGHT}{Fore.YELLOW}{len(status_log)}{Style.RESET_ALL} guesses.\n'
       f' {Style.BRIGHT}{Fore.GREEN}{count["correct"]} correct letter guesses.\n'
-      f' {Style.BRIGHT}{Fore.YELLOW}{count["incorrect_word"]} incorrect word guesses.\n'
+      f' {Style.BRIGHT}{Fore.GREEN}{count["correct_word"]} correct word guesses.\n'
       f' {Style.BRIGHT}{Fore.YELLOW}{count["incorrect"]} incorrect letter guesses.\n'
-      f' {Style.BRIGHT}{Fore.YELLOW}{count["duplicate"]} duplicate guesses.\n'
+      f' {Style.BRIGHT}{Fore.YELLOW}{count["incorrect_word"]} incorrect word guesses.\n'
+      f' {Style.BRIGHT}{Fore.CYAN}{count["duplicate"]} duplicate guesses.\n'
       f' {Style.BRIGHT}{Fore.RED}{count["invalid"]} invalid guesses.{Style.RESET_ALL}\n')
 
 for index, status in enumerate(status_log):
@@ -95,6 +94,8 @@ for index, status in enumerate(status_log):
         print_log.append(f'{Style.BRIGHT}{Fore.GREEN}{guess_log[index]}')
     elif status == 'incorrect' or status == 'incorrect_word':
         print_log.append(f'{Style.BRIGHT}{Fore.YELLOW}{guess_log[index]}')
+    elif status == 'duplicate':
+        print_log.append(f'{Style.BRIGHT}{Fore.CYAN}{guess_log[index]}')
     elif status == 'invalid':
         print_log.append(f'{Style.BRIGHT}{Fore.RED}{guess_log[index]}')
     else:
