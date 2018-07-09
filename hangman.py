@@ -3,6 +3,7 @@
 # James Good 6/27/2018
 import pickle
 import random
+import operator
 from collections import Counter
 
 import colorama
@@ -97,14 +98,15 @@ print(f'It took you {color["yellow"]}{len(status_log)}{color["reset"]} guesses.\
       f' {color["red"]}{count["invalid"]} invalid guesses.{color["reset"]}\n')
 
 game_log = list(zip(guess_log, status_log, list(range(len(status_log)))))
+sorted_log = sorted(game_log, key = operator.itemgetter(0, 2))
 
 print('Guess Log: ', end='')
-for g, s, i in sorted(game_log, key=lambda tup: tup[2]):
+for g, s, i in game_log:
     print(f'{status_color[s]}{g} ', end='', flush=True)
 print('\n')
 
 print('A-Z Guess: ', end='')
-for g, s, i in sorted(game_log, key=lambda tup: (tup[0], tup[2])):
+for g, s, i in sorted_log:
     print(f'{status_color[s]}{g} ', end='', flush=True)
 print('\n')
 
