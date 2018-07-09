@@ -3,6 +3,7 @@
 # James Good 6/27/2018
 import pickle
 import random
+import string
 import operator
 from collections import Counter
 
@@ -107,7 +108,8 @@ print('\n')
 
 print('A-Z Guess: ', end='')
 for g, s, i in sorted_log:
-    print(f'{status_color[s]}{g} ', end='', flush=True)
+    if g in string.ascii_uppercase:
+        print(f'{status_color[s]}{g} ', end='', flush=True)
 print('\n')
 
 if not word_list:
