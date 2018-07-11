@@ -35,7 +35,7 @@ found_list = list('_' * mystery_len)
 guess_log = list()
 status_log = list()
 score_log = list()
-base_score = 10 * mystery_len
+base_score = 100 * mystery_len
 found = 0
 prompt = 'Guess a letter, or guess the word.'  # initial prompt
 
@@ -52,7 +52,7 @@ while found_list != mystery_list:
         if str(guess).isalpha():
             guess = str(guess).upper()
             if guess in guess_log:
-                plus_minus = -5 * Counter(guess_log)[guess] # cost increases for each duplication of the same guess
+                plus_minus = -75 * Counter(guess_log)[guess] # cost increases for each duplication of the same guess
                 score_log.append(plus_minus)
                 guess_log.append(guess)
                 status_log.append('duplicate')
@@ -66,12 +66,12 @@ while found_list != mystery_list:
                             found += 1
                             found_list[index] = guess
                     status_log.append('correct')
-                    plus_minus = 10 * Counter(mystery_word)[guess]
+                    plus_minus = 100 * Counter(mystery_word)[guess]
                     score_log.append(plus_minus)
                     prompt = f'Correct!! {color["green"]}{guess}{color["reset"]} was a match! ({plus_minus} pts.)'
                 else:
                     status_log.append('incorrect')
-                    plus_minus = -5
+                    plus_minus = -75
                     score_log.append(plus_minus)
                     prompt = f'Sorry, no {color["yellow"]}{guess}{color["reset"]} Try again. ({plus_minus} pts.)'
             elif len(guess) > 1:
@@ -79,7 +79,7 @@ while found_list != mystery_list:
                     found_list = mystery_list
                     guess_log.append(guess)
                     status_log.append('correct_word')
-                    plus_minus = 10 * (mystery_len - found )
+                    plus_minus = 100 * (mystery_len - found )
                     score_log.append(plus_minus)
                     prompt = f'Correct!! {color["green"]}{guess}{color["reset"]} was a match! ({plus_minus} pts.)'
                     continue
@@ -90,7 +90,7 @@ while found_list != mystery_list:
                 else:
                     guess_log.append(guess)
                     status_log.append('incorrect_word')
-                    plus_minus = -5 * Counter(status_log)['incorrect_word']
+                    plus_minus = -75
                     score_log.append(plus_minus)
                     prompt = f'Sorry, {color["yellow"]}{guess}{color["reset"]} ' \
                              f'is not the mystery word. ({plus_minus} pts.)'
@@ -110,14 +110,14 @@ while found_list != mystery_list:
         print(f'{color["green"]}[ {" ".join(found_list)} ]{color["reset"]}  {prompt} '
               f'Score: {color["yellow"]}{sum(score_log) + base_score} {color["reset"]}>\n'
               f'{color["yellow"]}[ G A M E _ O V E R ]  {color["reset"]}Better luck next time!\n\n'
-              f'Final Score: {color["yellow"]}{sum(score_log) + base_score}\n')
+              f'Final Score: {color["yellow"]}{sum(score_log) + base_score}{color["reset"]} / {base_score * 2}\n')
         break
 else:
     print(f'{color["green"]}[ {" ".join(mystery_list)} ]{color["reset"]}  {prompt} '
           f'Score: {color["green"]}{sum(score_log) + base_score} {color["reset"]}>\n'
           f'{color["green"]}[ G A M E _ O V E R ]  {color["reset"]}You guessed it! '
           f'The mystery word was {color["green"]}{mystery_word}{color["reset"]}!\n\n'
-          f'Final Score: {color["green"]}{sum(score_log) + base_score}\n')
+          f'Final Score: {color["green"]}{sum(score_log) + base_score}{color["reset"]} / {base_score * 2}\n')
 
 count = Counter(status_log)
 print(f'You made {color["yellow"]}{len(status_log)}{color["reset"]} guesses.\n\n'
