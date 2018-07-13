@@ -11,6 +11,7 @@ import colorama
 from colorama import Fore, Style
 
 colorama.init(autoreset=True)
+
 color = {'green': Style.BRIGHT+Fore.GREEN,
          'yellow': Style.BRIGHT+Fore.YELLOW,
          'cyan': Style.BRIGHT+Fore.CYAN,
@@ -21,6 +22,7 @@ status_color = {'correct': color["green"], 'correct_word': color["green"],
                 'duplicate': color["cyan"], 'invalid': color["red"]}
 master_word_list = ['LEARNING', 'PYTHON', 'SCRIPT', 'STUDY', 'PROGRAM', 'STRUCTURE',
                     'CLASS', 'FUNCTION', 'VARIABLE', 'SYNTAX']
+vowels = frozenset({'A','E','I','O','U'})
 
 try:
     with open('word_list.pickle', 'rb') as p_file:
@@ -37,10 +39,12 @@ status_log = list()
 score_log = list()
 base_score = 100 * mystery_len
 found = 0
+
 prompt = 'Guess a letter, or guess the word.'  # initial prompt
 
 print(f'\n{color["yellow"]}Guess the Mystery Word!{color["reset"]}\n'
       f'You can guess one letter at a time, or try to guess the whole word.\n'
+      f'{color["cyan"]}Incorrect vowel guesses cost double points! (-150 pts.){color["reset"]}\n'
       f'Type {color["yellow"]}exit{color["reset"]} to quit without guessing the word.\n\n'
       f'The mystery word contains {color["yellow"]}{mystery_len}{color["reset"]} letters.')
 
@@ -51,6 +55,7 @@ while found_list != mystery_list:
         guess = str(input()).strip()
         if str(guess).isalpha():
             guess = str(guess).upper()
+            is_vowel = guess in vowels
             if guess in guess_log:
                 plus_minus = -75 * Counter(guess_log)[guess] # cost increases for each duplication of the same guess
                 score_log.append(plus_minus)
@@ -71,7 +76,10 @@ while found_list != mystery_list:
                     prompt = f'Correct!! {color["green"]}{guess}{color["reset"]} was a match! ({plus_minus} pts.)'
                 else:
                     status_log.append('incorrect')
-                    plus_minus = -75
+                    if is_vowel:
+                        plus_minus = -150
+                    else:
+                        plus_minus = -75    
                     score_log.append(plus_minus)
                     prompt = f'Sorry, no {color["yellow"]}{guess}{color["reset"]} Try again. ({plus_minus} pts.)'
             elif len(guess) > 1:
@@ -87,6 +95,8 @@ while found_list != mystery_list:
                     print(f'\n{color["yellow"]}Goodbye.\n')
                     colorama.deinit()
                     quit()
+                elif guess == 'VOWEL':
+                    pass
                 else:
                     guess_log.append(guess)
                     status_log.append('incorrect_word')
