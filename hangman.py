@@ -10,19 +10,21 @@ from collections import Counter
 import colorama
 from colorama import Fore, Style
 
+hard_mode = True  # deducts double points for incorrect vowels when enabled.
+
 colorama.init(autoreset=True)
 
-color = {'green': Style.BRIGHT+Fore.GREEN,
-         'yellow': Style.BRIGHT+Fore.YELLOW,
-         'cyan': Style.BRIGHT+Fore.CYAN,
-         'red': Style.BRIGHT+Fore.RED,
+color = {'green': Style.BRIGHT + Fore.GREEN,
+         'yellow': Style.BRIGHT + Fore.YELLOW,
+         'cyan': Style.BRIGHT + Fore.CYAN,
+         'red': Style.BRIGHT + Fore.RED,
          'reset': Style.RESET_ALL}
 status_color = {'correct': color["green"], 'correct_word': color["green"],
                 'incorrect': color["yellow"], 'incorrect_word': color["yellow"],
-                'duplicate': color["cyan"], 'invalid': color["red"]}
+                'duplicate': color["cyan"], 'invalid': color["red"], 'vowel': color["reset"]}
 master_word_list = ['LEARNING', 'PYTHON', 'SCRIPT', 'STUDY', 'PROGRAM', 'STRUCTURE',
                     'CLASS', 'FUNCTION', 'VARIABLE', 'SYNTAX']
-vowels = frozenset({'A','E','I','O','U'})
+vowels = frozenset({'A', 'E', 'I', 'O', 'U'})
 
 try:
     with open('word_list.pickle', 'rb') as p_file:
@@ -33,19 +35,23 @@ except:
 mystery_word = word_list.pop()
 mystery_len = len(mystery_word)
 mystery_list = list(mystery_word)
+mystery_vowels = list(vowels.intersection(mystery_word))
+remaining_vowels = random.sample(mystery_vowels, len(mystery_vowels))
 found_list = list('_' * mystery_len)
 guess_log = list()
 status_log = list()
 score_log = list()
 base_score = 100 * mystery_len
 found = 0
-
 prompt = 'Guess a letter, or guess the word.'  # initial prompt
 
 print(f'\n{color["yellow"]}Guess the Mystery Word!{color["reset"]}\n'
-      f'You can guess one letter at a time, or try to guess the whole word.\n'
-      f'{color["cyan"]}Incorrect vowel guesses cost double points! (-150 pts.){color["reset"]}\n'
+      f'You can guess one letter at a time, or try to guess the whole word.\n')
+if hard_mode:
+    print(f'{color["cyan"]}Incorrect vowel guesses cost double points! (-150 pts.){color["reset"]}\n')
+print(f'Type {color["yellow"]}vowel{color["reset"]} to to reveal a vowel for (-200) points.\n'
       f'Type {color["yellow"]}exit{color["reset"]} to quit without guessing the word.\n\n'
+      f'The category is {color["green"]}fruit.{color["reset"]}\n\n'   
       f'The mystery word contains {color["yellow"]}{mystery_len}{color["reset"]} letters.')
 
 while found_list != mystery_list:
@@ -57,7 +63,7 @@ while found_list != mystery_list:
             guess = str(guess).upper()
             is_vowel = guess in vowels
             if guess in guess_log:
-                plus_minus = -75 * Counter(guess_log)[guess] # cost increases for each duplication of the same guess
+                plus_minus = -75 * Counter(guess_log)[guess]  # cost increases for each duplication of the same guess
                 score_log.append(plus_minus)
                 guess_log.append(guess)
                 status_log.append('duplicate')
@@ -76,10 +82,10 @@ while found_list != mystery_list:
                     prompt = f'Correct!! {color["green"]}{guess}{color["reset"]} was a match! ({plus_minus} pts.)'
                 else:
                     status_log.append('incorrect')
-                    if is_vowel:
+                    if hard_mode and is_vowel:
                         plus_minus = -150
                     else:
-                        plus_minus = -75    
+                        plus_minus = -75
                     score_log.append(plus_minus)
                     prompt = f'Sorry, no {color["yellow"]}{guess}{color["reset"]} Try again. ({plus_minus} pts.)'
             elif len(guess) > 1:
@@ -87,7 +93,7 @@ while found_list != mystery_list:
                     found_list = mystery_list
                     guess_log.append(guess)
                     status_log.append('correct_word')
-                    plus_minus = 100 * (mystery_len - found )
+                    plus_minus = 100 * (mystery_len - found)
                     score_log.append(plus_minus)
                     prompt = f'Correct!! {color["green"]}{guess}{color["reset"]} was a match! ({plus_minus} pts.)'
                     continue
@@ -96,7 +102,22 @@ while found_list != mystery_list:
                     colorama.deinit()
                     quit()
                 elif guess == 'VOWEL':
-                    pass
+                    status_log.append('vowel')
+                    plus_minus = -200
+                    score_log.append(plus_minus)
+                    if not remaining_vowels:
+                        guess_log.append('*vowel')
+                        prompt = f'{color["cyan"]}All vowels have already been revealed.' \
+                                 f'{color["reset"]} ({plus_minus} pts.)'
+                    else:
+                        vowel_pick = remaining_vowels.pop()
+                        guess_log.append(vowel_pick)
+                        for index, letter in enumerate(mystery_list):
+                            if letter == vowel_pick:
+                                found += 1
+                                found_list[index] = vowel_pick
+                        prompt = f'All {color["green"]}{vowel_pick}{color["reset"]}\'s have been revealed.' \
+                                 f' ({plus_minus} pts.)'
                 else:
                     guess_log.append(guess)
                     status_log.append('incorrect_word')
@@ -136,10 +157,11 @@ print(f'You made {color["yellow"]}{len(status_log)}{color["reset"]} guesses.\n\n
       f' {color["yellow"]}{count["incorrect"]} incorrect letter guesses.\n'
       f' {color["yellow"]}{count["incorrect_word"]} incorrect word guesses.\n'
       f' {color["cyan"]}{count["duplicate"]} duplicate guesses.\n'
-      f' {color["red"]}{count["invalid"]} invalid guesses.{color["reset"]}\n')
+      f' {color["red"]}{count["invalid"]} invalid guesses.{color["reset"]}\n'
+      f' {count["vowel"]} vowel reveals.\n')
 
 game_log = list(zip(guess_log, status_log, list(range(len(status_log)))))
-sorted_log = sorted(game_log, key = operator.itemgetter(0, 2))
+sorted_log = sorted(game_log, key=operator.itemgetter(0, 2))
 
 print('Guess Log: ', end='')
 for g, s, i in game_log:
