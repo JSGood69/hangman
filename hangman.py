@@ -63,7 +63,6 @@ while found_list != mystery_list:
         guess = str(input()).strip()
         if str(guess).isalpha():
             guess = str(guess).upper()
-            is_vowel = guess in vowels
             if guess in guess_log:
                 plus_minus = -75 * Counter(guess_log)[guess]  # cost increases for each duplication of the same guess
                 score_log.append(plus_minus)
@@ -72,6 +71,7 @@ while found_list != mystery_list:
                 prompt = f'You already guessed {color["cyan"]}{guess}{color["reset"]}. ({plus_minus} pts.)'
                 continue
             if len(guess) == 1:
+                is_vowel = guess in vowels
                 guess_log.append(guess)
                 if guess in mystery_list:
                     for index, letter in enumerate(mystery_list):
