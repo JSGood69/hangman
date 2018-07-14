@@ -22,8 +22,10 @@ color = {'green': Style.BRIGHT + Fore.GREEN,
 status_color = {'correct': color["green"], 'correct_word': color["green"],
                 'incorrect': color["yellow"], 'incorrect_word': color["yellow"],
                 'duplicate': color["cyan"], 'invalid': color["red"], 'vowel': color["reset"]}
-master_word_list = ['LEARNING', 'PYTHON', 'SCRIPT', 'STUDY', 'PROGRAM', 'STRUCTURE',
-                    'CLASS', 'FUNCTION', 'VARIABLE', 'SYNTAX']
+master_word_list = ['APPLE', 'APRICOT', 'BANANA', 'BLACKBERRY', 'BLUEBERRY', 'BOYSENBERRY', 'CHERRY', 'CRANBERRY',
+                    'FIG', 'GRAPE', 'GRAPEFRUIT', 'GUAVA', 'HUCKLEBERRY', 'KUMQUAT', 'LEMON', 'LIME', 'MANGO',
+                    'CANTALOUPE', 'HONEYDEW', 'WATERMELON', 'NECTARINE', 'ORANGE', 'TANGERINE', 'PAPAYA', 'PEACH',
+                    'PEAR', 'PERSIMMON', 'PLUM', 'PINEAPPLE', 'POMEGRANATE', 'RASPBERRY', 'STRAWBERRY']
 vowels = frozenset({'A', 'E', 'I', 'O', 'U'})
 
 try:
