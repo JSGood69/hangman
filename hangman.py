@@ -8,20 +8,12 @@ import operator
 from collections import Counter
 
 import colorama
-from colorama import Fore, Style
+import text_color
 
 hard_mode = True  # deducts double points for incorrect vowels when enabled.
 
-colorama.init(autoreset=True)
+colorama.init()
 
-color = {'green': Style.BRIGHT + Fore.GREEN,
-         'yellow': Style.BRIGHT + Fore.YELLOW,
-         'cyan': Style.BRIGHT + Fore.CYAN,
-         'red': Style.BRIGHT + Fore.RED,
-         'reset': Style.RESET_ALL}
-status_color = {'correct': color["green"], 'correct_word': color["green"],
-                'incorrect': color["yellow"], 'incorrect_word': color["yellow"],
-                'duplicate': color["cyan"], 'invalid': color["red"], 'vowel': color["reset"]}
 master_word_list = ['APPLE', 'APRICOT', 'BANANA', 'BLACKBERRY', 'BLUEBERRY', 'BOYSENBERRY', 'CHERRY', 'CRANBERRY',
                     'FIG', 'GRAPE', 'GRAPEFRUIT', 'GUAVA', 'HUCKLEBERRY', 'KUMQUAT', 'LEMON', 'LIME', 'MANGO',
                     'CANTALOUPE', 'HONEYDEW', 'WATERMELON', 'NECTARINE', 'ORANGE', 'TANGERINE', 'PAPAYA', 'PEACH',
@@ -47,19 +39,19 @@ base_score = 100 * mystery_len
 found = 0
 prompt = 'Guess a letter, or guess the word.'  # initial prompt
 
-print(f'\n{color["yellow"]}Guess the Mystery Word!{color["reset"]}\n'
-      f'You can guess one letter at a time, or try to guess the whole word.\n')
+print(text_color.yellow('\nGuess the Mystery Word!\n'))
+print('You can guess one letter at a time, or try to guess the whole word.\n')
 if hard_mode:
-    print(f'{color["cyan"]}Incorrect vowel guesses cost double points! (-150 pts.){color["reset"]}\n')
-print(f'Type {color["yellow"]}vowel{color["reset"]} to to reveal a vowel for (-200) points.\n'
-      f'Type {color["yellow"]}exit{color["reset"]} to quit without guessing the word.\n\n'
-      f'The category is {color["green"]}fruit.{color["reset"]}\n\n'   
-      f'The mystery word contains {color["yellow"]}{mystery_len}{color["reset"]} letters.')
+    print(text_color.cyan('Incorrect vowel guesses cost double points! (-150 pts.)\n'))
+print(f'Type {text_color.yellow("vowel")} to to reveal a vowel for (-200) points.\n'
+      f'Type {text_color.yellow("exit")} to quit without guessing the word.\n\n'
+      f'The category is {text_color.green("fruit")}\n\n'
+      f'The mystery word contains {text_color.yellow(mystery_len)} letters.')
 
 while found_list != mystery_list:
     if sum(score_log) + base_score > 0:
-        print(f'{color["green"]}[ {" ".join(found_list)} ]{color["reset"]}  {prompt} '
-              f'Score: {color["green"]}{sum(score_log) + base_score}{color["reset"]} > ', end='')
+        print(f'{text_color.green("[ " + " ".join(found_list) + " ]")}  {prompt} '
+              f'Score: {text_color.green(str(sum(score_log) + base_score))} > ', end='')
         guess = str(input()).strip()
         if str(guess).isalpha():
             guess = str(guess).upper()
@@ -68,7 +60,7 @@ while found_list != mystery_list:
                 score_log.append(plus_minus)
                 guess_log.append(guess)
                 status_log.append('duplicate')
-                prompt = f'You already guessed {color["cyan"]}{guess}{color["reset"]}. ({plus_minus} pts.)'
+                prompt = f'You already guessed {text_color.cyan(guess)}. ({plus_minus} pts.)'
                 continue
             if len(guess) == 1:
                 is_vowel = guess in vowels
@@ -81,7 +73,7 @@ while found_list != mystery_list:
                     status_log.append('correct')
                     plus_minus = 100 * Counter(mystery_word)[guess]
                     score_log.append(plus_minus)
-                    prompt = f'Correct!! {color["green"]}{guess}{color["reset"]} was a match! ({plus_minus} pts.)'
+                    prompt = f'Correct!! {text_color.green(guess)} was a match! ({plus_minus} pts.)'
                 else:
                     status_log.append('incorrect')
                     if hard_mode and is_vowel:
@@ -89,7 +81,7 @@ while found_list != mystery_list:
                     else:
                         plus_minus = -75
                     score_log.append(plus_minus)
-                    prompt = f'Sorry, no {color["yellow"]}{guess}{color["reset"]} Try again. ({plus_minus} pts.)'
+                    prompt = f'Sorry, no {text_color.yellow(guess)} Try again. ({plus_minus} pts.)'
             elif len(guess) > 1:
                 if guess == mystery_word:
                     found_list = mystery_list
@@ -97,10 +89,10 @@ while found_list != mystery_list:
                     status_log.append('correct_word')
                     plus_minus = 100 * (mystery_len - found)
                     score_log.append(plus_minus)
-                    prompt = f'Correct!! {color["green"]}{guess}{color["reset"]} was a match! ({plus_minus} pts.)'
+                    prompt = f'Correct!! {text_color.green(guess)} was a match! ({plus_minus} pts.)'
                     continue
                 elif guess == 'EXIT':
-                    print(f'\n{color["yellow"]}Goodbye.\n')
+                    print(f'\n{text_color.yellow("Goodbye.")}\n')
                     colorama.deinit()
                     quit()
                 elif guess == 'VOWEL':
@@ -109,8 +101,7 @@ while found_list != mystery_list:
                     score_log.append(plus_minus)
                     if not remaining_vowels:
                         guess_log.append('*vowel')
-                        prompt = f'{color["cyan"]}All vowels have already been revealed.' \
-                                 f'{color["reset"]} ({plus_minus} pts.)'
+                        prompt = text_color.cyan('All vowels have already been revealed.') + f' ({plus_minus} pts.)'
                     else:
                         vowel_pick = remaining_vowels.pop()
                         guess_log.append(vowel_pick)
@@ -118,48 +109,48 @@ while found_list != mystery_list:
                             if letter == vowel_pick:
                                 found += 1
                                 found_list[index] = vowel_pick
-                        prompt = f'All {color["green"]}{vowel_pick}{color["reset"]}\'s have been revealed.' \
+                        prompt = f'All {text_color.green(vowel_pick)}\'s have been revealed.' \
                                  f' ({plus_minus} pts.)'
                 else:
                     guess_log.append(guess)
                     status_log.append('incorrect_word')
                     plus_minus = -75
                     score_log.append(plus_minus)
-                    prompt = f'Sorry, {color["yellow"]}{guess}{color["reset"]} ' \
+                    prompt = f'Sorry, {text_color.yellow(guess)} ' \
                              f'is not the mystery word. ({plus_minus} pts.)'
                     continue
         else:
             if len(guess) == 0:
-                prompt = f'{color["red"]}No input detected.{color["reset"]}'
+                prompt = f'{text_color.red("No input detected.")}'
                 continue
             else:
                 status_log.append('invalid')
                 guess_log.append(guess)
                 plus_minus = 0
                 score_log.append(plus_minus)
-                prompt = f'{color["red"]}{guess}{color["reset"]} is not a valid input. ({plus_minus} pts.)'
+                prompt = text_color.red(guess) + f' is not a valid input. ({plus_minus} pts.)'
                 continue
     else:
-        print(f'{color["green"]}[ {" ".join(found_list)} ]{color["reset"]}  {prompt} '
-              f'Score: {color["yellow"]}{sum(score_log) + base_score} {color["reset"]}>\n'
-              f'{color["yellow"]}[ G A M E _ O V E R ]  {color["reset"]}Better luck next time!\n\n'
-              f'Final Score: {color["yellow"]}{sum(score_log) + base_score}{color["reset"]} / {base_score * 2}\n')
+        print(f'{text_color.green("[ " + " ".join(found_list) + " ]")}  {prompt} '
+              f'Score: {text_color.green(str(sum(score_log) + base_score))} > \n'
+              f'{text_color.yellow("[ G A M E _ O V E R ]")}  Better luck next time!")\n\n'
+              f'Final Score: {text_color.yellow(str(sum(score_log) + base_score))} / {base_score * 2}\n')
         break
 else:
-    print(f'{color["green"]}[ {" ".join(mystery_list)} ]{color["reset"]}  {prompt} '
-          f'Score: {color["green"]}{sum(score_log) + base_score} {color["reset"]}>\n'
-          f'{color["green"]}[ G A M E _ O V E R ]  {color["reset"]}You guessed it! '
-          f'The mystery word was {color["green"]}{mystery_word}{color["reset"]}!\n\n'
-          f'Final Score: {color["green"]}{sum(score_log) + base_score}{color["reset"]} / {base_score * 2}\n')
+    print(f'{text_color.green("[ " + " ".join(mystery_list) + " ]")}  {prompt} '
+          f'Score: {text_color.green(str(sum(score_log) + base_score))} > \n'
+          f'{text_color.green("[ G A M E _ O V E R ]")}  You guessed it! '
+          f'The mystery word was {text_color.green(mystery_word)}!\n\n'
+          f'Final Score: {text_color.green(str(sum(score_log) + base_score))} / {base_score * 2}\n')
 
 count = Counter(status_log)
-print(f'You made {color["yellow"]}{len(status_log)}{color["reset"]} guesses.\n\n'
-      f' {color["green"]}{count["correct"]} correct letter guesses.\n'
-      f' {color["green"]}{count["correct_word"]} correct word guesses.\n'
-      f' {color["yellow"]}{count["incorrect"]} incorrect letter guesses.\n'
-      f' {color["yellow"]}{count["incorrect_word"]} incorrect word guesses.\n'
-      f' {color["cyan"]}{count["duplicate"]} duplicate guesses.\n'
-      f' {color["red"]}{count["invalid"]} invalid guesses.{color["reset"]}\n'
+print(f'You made {text_color.yellow(str(len(status_log)))} guesses.\n\n'
+      f' {text_color.green(str(count["correct"]) + " correct letter guesses.")}\n'
+      f' {text_color.green(str(count["correct_word"]) + " correct word guesses.")}\n'
+      f' {text_color.yellow(str(count["incorrect"]) + " incorrect letter guesses.")}\n'
+      f' {text_color.yellow(str(count["incorrect_word"]) + " incorrect word guesses.")}\n'
+      f' {text_color.cyan(str(count["duplicate"])+ " duplicate guesses.")}\n'
+      f' {text_color.red(str(count["invalid"]) + " invalid guesses.")}\n'
       f' {count["vowel"]} vowel reveals.\n')
 
 game_log = list(zip(guess_log, status_log, list(range(len(status_log)))))
@@ -167,13 +158,13 @@ sorted_log = sorted(game_log, key=operator.itemgetter(0, 2))
 
 print('Guess Log: ', end='')
 for g, s, i in game_log:
-    print(f'{status_color[s]}{g} ', end='', flush=True)
+    print(f'{text_color.status_color(s, g)} ', end='', flush=True)
 print('\n')
 
 print('A-Z Guess: ', end='')
 for g, s, i in sorted_log:
     if g in string.ascii_uppercase:
-        print(f'{status_color[s]}{g} ', end='', flush=True)
+        print(f'{text_color.status_color(s, g)} ', end='', flush=True)
 print('\n')
 
 if not word_list:
@@ -183,6 +174,6 @@ try:
     with open('word_list.pickle', 'wb') as p_file:
         pickle.dump(word_list, p_file)
 except:
-    print(f'{color["yellow"]}Error saving word list.')
+    print(text_color.yellow('Error saving word list.'))
 
 colorama.deinit()
