@@ -13,44 +13,30 @@ _status_color = {'correct': _green, 'correct_word': _green,
 
 def green(my_string, reset_color=True):
     if reset_color:
-        colored_string = f'{_green}{my_string}{_reset}'
-        return colored_string
+        return f'{_green}{my_string}{_reset}'
     else:
-        colored_string = f'{_green}{my_string}'
-        return colored_string
-
+        return f'{_green}{my_string}'
 
 def yellow(my_string, reset_color=True):
     if reset_color:
-        colored_string = f'{_yellow}{my_string}{_reset}'
-        return colored_string
+        return f'{_yellow}{my_string}{_reset}'
     else:
-        colored_string = f'{_yellow}{my_string}'
-        return colored_string
-
+        return f'{_yellow}{my_string}'
 
 def cyan(my_string, reset_color=True):
-    if reset_color:
-        colored_string = f'{_cyan}{my_string}{_reset}'
-        return colored_string
+    if reset_color:   
+        return f'{_cyan}{my_string}{_reset}'
     else:
-        colored_string = f'{_cyan}{my_string}'
-        return colored_string
-
+         return f'{_cyan}{my_string}'
 
 def red(my_string, reset_color=True):
     if reset_color:
-        colored_string = f'{_red}{my_string}{_reset}'
-        return colored_string
+        return f'{_red}{my_string}{_reset}'
     else:
-        colored_string = f'{_red}{my_string}'
-        return colored_string
-
+        return f'{_red}{my_string}'
 
 def status_color(my_status, my_string, reset_color=True):
     if reset_color:
-        colored_string = f'{_status_color[my_status]}{my_string}{_reset}'
-        return colored_string
+        return f'{_status_color[my_status]}{my_string}{_reset}'
     else:
-        colored_string = f'{_status_color[my_status]}{my_string}'
-        return colored_string
+        return f'{_status_color[my_status]}{my_string}'
