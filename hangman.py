@@ -70,6 +70,9 @@ while found_list != mystery_list:
                         if letter == guess:
                             found += 1
                             found_list[index] = guess
+                    if is_vowel:
+                        if guess in remaining_vowels:
+                            remaining_vowels.remove(guess)
                     status_log.append('correct')
                     plus_minus = 100 * Counter(mystery_word)[guess]
                     score_log.append(plus_minus)
