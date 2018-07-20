@@ -6,11 +6,12 @@ class WordList:
     categories = ['fruits', 'states']
     category = str(random.choice(categories)).capitalize()
 
-    def __init__(self):
+    def __init__(self, category):
+        self.category = str(category).capitalize()
         self.word_list = self._load_list()
         self.word_queue = self._load_queue()
         self.mystery_word = self.get_word()
-        self.save_queue()
+
 
     def _load_queue(self):
         try:
@@ -49,7 +50,7 @@ class WordList:
             self.word_queue = self._randomize_list()
         return str(self.word_queue.pop()).upper()
 
-    def save_queue(self):
+    def save_word_queue(self):
         if not self.word_queue:
             self.word_queue = self._randomize_list()
         try:
