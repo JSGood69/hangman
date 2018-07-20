@@ -34,6 +34,7 @@ if ' ' in mystery_list:
         if letter == ' ':
             mystery_len -= 1
             found_list[index] = '] ['
+            mystery_list[index] = '] ['
 
 base_score = 100 * mystery_len
 
@@ -51,8 +52,8 @@ while found_list != mystery_list:
         print(f'{text_color.green("[ " + " ".join(found_list) + " ]")}  {prompt} '
               f'Score: {text_color.green(str(sum(score_log) + base_score))} > ', end='')
         guess = str(input()).strip()
-        if str(guess).isalpha():
-            guess = str(guess).upper()
+        if guess.isalpha or guess.upper == mystery_word:
+            guess = guess.upper()
             if guess in guess_log:
                 plus_minus = -75 * Counter(guess_log)[guess]  # cost increases for each duplication of the same guess
                 score_log.append(plus_minus)
