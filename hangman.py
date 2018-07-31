@@ -1,32 +1,23 @@
 # a simple guess the word game.
 # built from scratch as a python 3.6 learning exercise
 # James Good 6/27/2018
-import pickle
 import random
 import string
 import operator
 from collections import Counter
 
 import colorama
+
 import text_color
+from wordlist import WordList
 
 hard_mode = True  # deducts double points for incorrect vowels when enabled.
 
 colorama.init()
 
-master_word_list = ['APPLE', 'APRICOT', 'BANANA', 'BLACKBERRY', 'BLUEBERRY', 'BOYSENBERRY', 'CHERRY', 'CRANBERRY',
-                    'FIG', 'GRAPE', 'GRAPEFRUIT', 'GUAVA', 'HUCKLEBERRY', 'KUMQUAT', 'LEMON', 'LIME', 'MANGO',
-                    'CANTALOUPE', 'HONEYDEW', 'WATERMELON', 'NECTARINE', 'ORANGE', 'TANGERINE', 'PAPAYA', 'PEACH',
-                    'PEAR', 'PERSIMMON', 'PLUM', 'PINEAPPLE', 'POMEGRANATE', 'RASPBERRY', 'STRAWBERRY']
 vowels = frozenset({'A', 'E', 'I', 'O', 'U'})
-
-try:
-    with open('word_list.pickle', 'rb') as p_file:
-        word_list = pickle.load(p_file)
-except:
-    word_list = random.sample(master_word_list, len(master_word_list))
-
-mystery_word = word_list.pop()
+word_list = WordList('states')
+mystery_word = word_list.mystery_word
 mystery_len = len(mystery_word)
 mystery_list = list(mystery_word)
 mystery_vowels = list(vowels.intersection(mystery_word))
@@ -35,9 +26,17 @@ found_list = list('_' * mystery_len)
 guess_log = list()
 status_log = list()
 score_log = list()
-base_score = 100 * mystery_len
 found = 0
 prompt = 'Guess a letter, or guess the word.'  # initial prompt
+
+if ' ' in mystery_list:
+    for index, letter in enumerate(mystery_list):
+        if letter == ' ':
+            mystery_len -= 1
+            found_list[index] = '] ['
+            mystery_list[index] = '] ['
+
+base_score = 100 * mystery_len
 
 print(text_color.yellow('\nGuess the Mystery Word!\n'))
 print('You can guess one letter at a time, or try to guess the whole word.\n')
@@ -45,7 +44,7 @@ if hard_mode:
     print(text_color.cyan('Incorrect vowel guesses cost double points! (-150 pts.)\n'))
 print(f'Type {text_color.yellow("vowel")} to to reveal a vowel for (-200) points.\n'
       f'Type {text_color.yellow("exit")} to quit without guessing the word.\n\n'
-      f'The category is {text_color.green("fruit")}\n\n'
+      f'The category is {text_color.green(word_list.category)}\n\n'
       f'The mystery word contains {text_color.yellow(mystery_len)} letters.')
 
 while found_list != mystery_list:
@@ -53,8 +52,8 @@ while found_list != mystery_list:
         print(f'{text_color.green("[ " + " ".join(found_list) + " ]")}  {prompt} '
               f'Score: {text_color.green(str(sum(score_log) + base_score))} > ', end='')
         guess = str(input()).strip()
-        if str(guess).isalpha():
-            guess = str(guess).upper()
+        if guess.isalpha() or guess.upper() == mystery_word:
+            guess = guess.upper()
             if guess in guess_log:
                 plus_minus = -75 * Counter(guess_log)[guess]  # cost increases for each duplication of the same guess
                 score_log.append(plus_minus)
@@ -170,13 +169,5 @@ for g, s, i in sorted_log:
         print(f'{text_color.status_color(s, g)} ', end='', flush=True)
 print('\n')
 
-if not word_list:
-    word_list = random.sample(master_word_list, len(master_word_list))
-
-try:
-    with open('word_list.pickle', 'wb') as p_file:
-        pickle.dump(word_list, p_file)
-except:
-    print(text_color.yellow('Error saving word list.'))
-
+word_list.save_word_queue()
 colorama.deinit()
