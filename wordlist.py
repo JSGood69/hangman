@@ -14,7 +14,7 @@ class WordList:
 
     def _load_queue(self):
         try:
-            with open(f'{self.category.lower()}_queue.pickle', 'rb') as p_file:
+            with open(f'pickle_barrel/{self.category.lower()}_queue.pickle', 'rb') as p_file:
                 return pickle.load(p_file)
         except FileNotFoundError:
             return self._randomize_list()
@@ -27,7 +27,7 @@ class WordList:
 
     def _load_list(self):
         try:
-            with open(f'{self.category.lower()}.json', 'r') as json_file:
+            with open(f'Wordlists/{self.category.lower()}.json', 'r') as json_file:
                 data = json.load(json_file)
                 return data[self.category.lower()]
         except FileNotFoundError:
@@ -51,7 +51,7 @@ class WordList:
         if not self.word_queue:
             self.word_queue = self._randomize_list()
         try:
-            with open(f'{self.category.lower()}_queue.pickle', 'wb') as p_file:
+            with open(f'pickle_barrel/{self.category.lower()}_queue.pickle', 'wb') as p_file:
                 pickle.dump(self.word_queue, p_file)
         except pickle.PickleError as p_err:
             print(f'Error pickling word list.\n{p_err}')
