@@ -16,7 +16,7 @@ hard_mode = True  # deducts double points for incorrect vowels when enabled.
 colorama.init()
 
 vowels = frozenset({'A', 'E', 'I', 'O', 'U'})
-word_list = WordList('states')
+word_list = WordList('sports')
 mystery_word = word_list.mystery_word
 mystery_len = len(mystery_word)
 mystery_list = list(mystery_word)
