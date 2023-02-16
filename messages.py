@@ -4,8 +4,8 @@ class Messages:
         self.initial_message = (
             '\nGuess the Mystery Word!\n\n'
             'You can guess one letter at a time, or try to guess the whole word.\n'
-            f'Type {text_color.yellow("vowel")} to to reveal a vowel for (-200) points.\n'
-            f'Type {text_color.yellow("exit")} to quit without guessing the word.\n\n'
+            'Type "VOWEL" to to reveal a vowel for (-200) points.\n'
+            'Type "EXIT" to quit without guessing the word.\n\n'
         )
         self.category_message = 'The category is {}.\n'
         self.mystery_len_message = 'The mystery word contains {} letters.'
