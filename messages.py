@@ -1,3 +1,5 @@
+import logging
+
 class Messages:
     def __init__(self):
         self.prompt = 'Guess a letter, or guess the word.'
@@ -49,3 +51,4 @@ class Messages:
             ' {} invalid guesses.\n'
             ' {} vowel reveals.\n'
         )
+        self.log = logging.getLogger(__name__)
