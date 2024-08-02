@@ -1,0 +1,10 @@
+{
+    "birds": [
+        "Albatross", "Bald Eagle", "Barn Owl", "Blue Jay", "Cardinal", "Chickadee", "Chicken", "Chimney Swift", "Cockatoo", "Cormorant",
+        "Crane", "Crow", "Duck", "Eagle", "Emu", "Falcon", "Finch", "Flamingo", "Gull", "Hawk",
+        "Hummingbird", "Ibis", "Kiwi", "Loon", "Magpie", "Mallard", "Nighthawk", "Ostrich", "Owl", "Parakeet",
+        "Parrot", "Pelican", "Penguin", "Pheasant", "Pigeon", "Puffin", "Quail", "Raven", "Roadrunner", "Robin",
+        "Rooster", "Seagull", "Sparrow", "Starling", "Stork", "Swallow", "Swan", "Tern", "Thrush", "Turkey",
+        "Vulture", "Woodpecker", "Wren", "Yellow Warbler"
+    ]
+}

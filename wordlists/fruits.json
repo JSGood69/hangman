@@ -1,0 +1,10 @@
+{
+    "fruits": [
+        "apple", "apricot", "banana", "blackberry", "blueberry", "boysenberry", "cherry", "cantaloupe",
+        "cranberry", "currant", "damson", "date", "dragon fruit", "elderberry", "fig", "goji berry",
+        "gooseberry", "grape", "grapefruit", "guava", "honeydew", "huckleberry", "jostaberry", "kiwi",
+        "kumquat", "lemon", "lime", "lychee", "mango", "mulberry", "nectarine", "orange", "passion fruit",
+        "peach", "pear", "persimmon", "plum", "pomegranate", "quince", "raspberry", "redcurrant",
+        "star fruit", "strawberry", "tamarillo", "tangerine", "tayberry", "watermelon", "whitecurrant"
+    ]
+}

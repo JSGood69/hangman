@@ -1,0 +1,12 @@
+{
+    "dinosaurs": [
+        "Allosaurus", "Apatosaurus", "Archaeopteryx", "Baryonyx", "Brachiosaurus",
+        "Ceratosaurus", "Compsognathus", "Deinonychus", "Diplodocus", "Dromaeosaurus",
+        "Euoplocephalus", "Gallimimus", "Giganotosaurus", "Herrerasaurus", "Iguanodon",
+        "Janenschia", "Kentrosaurus", "Lambeosaurus", "Mamenchisaurus", "Mapusaurus",
+        "Megalosaurus", "Microraptor", "Nodosaurus", "Ornithomimus", "Oviraptor",
+        "Pterodaustro", "Pterodactyl", "Raptor", "Saltasaurus", "Spinosaurus",
+        "Stegosaurus", "Suchomimus", "Triceratops", "Tyrannosaurus", "Velociraptor",
+        "Zuniceratops"
+    ]
+}

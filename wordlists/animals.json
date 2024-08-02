@@ -1,0 +1,12 @@
+{
+    "animals": [
+        "Alligator", "Ant", "Antelope", "Armadillo", "Baboon", "Badger", "Bat", "Bear", "Beaver", "Bee",
+        "Bison", "Boar", "Buffalo", "Butterfly", "Camel", "Capybara", "Cheetah", "Chimpanzee", "Crocodile", "Deer",
+        "Dolphin", "Donkey", "Duck", "Eagle", "Elephant", "Elk", "Flamingo", "Fox", "Frog", "Gazelle",
+        "Giraffe", "Goat", "Gorilla", "Hippopotamus", "Horse", "Hummingbird", "Hyena", "Ibex", "Jackal", "Jaguar",
+        "Kangaroo", "Koala", "Lion", "Llama", "Lobster", "Manatee", "Meerkat", "Monkey", "Moose", "Mosquito",
+        "Octopus", "Otter", "Owl", "Panda", "Panther", "Parrot", "Pelican", "Pig", "Puma", "Raccoon",
+        "Rattlesnake", "Rhinoceros", "Salmon", "Sardine", "Seahorse", "Shark", "Sheep", "Skunk", "Squirrel", "Swan",
+        "Tiger", "Turtle", "Walrus", "Wasp", "Whale", "Wolf", "Wombat", "Zebra"
+    ]
+}

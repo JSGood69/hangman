@@ -1,0 +1,12 @@
+{
+    "movies": [
+        "Amelie", "Casablanca", "Citizen Kane", "City Lights", "Easy Rider", "Fargo", "Forrest Gump",
+        "Grave of the Fireflies", "Groundhog Day", "The Grapes of Wrath", "High Noon", "Inception",
+        "Its a Wonderful Life", "Jaws", "King Kong", "The Lion King", "The Maltese Falcon", "Modern Times",
+        "North by Northwest", "On the Waterfront", "One Flew Over the Cuckoos Nest", "Pulp Fiction",
+        "Psycho", "Rear Window", "Rocky", "Schindlers List", "Singin in the Rain", "Some Like It Hot",
+        "Spirited Away", "Sunset Boulevard", "Taxi Driver", "The Apartment", "The Bridge on the River Kwai",
+        "The Godfather", "The Graduate", "The Great Dictator", "The Kid", "The Silence of the Lambs", "The Terminator",
+        "The Treasure of the Sierra Madre", "To Kill a Mockingbird", "Vertigo", "West Side Story", "The Wizard of Oz"
+    ]
+}

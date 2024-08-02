@@ -1,0 +1,13 @@
+{
+    "flowers": [
+        "Aconite", "Alchemilla", "Allium", "Alyssum", "Amaranth", "Amaryllis", "Anemone", "Aster", "Asphodel", "Balsam",
+        "Balloon flower", "Barberton daisy", "Basket of gold", "Bee balm", "Beardtongue", "Bellflower", "Bergamot", "Black-eyed Susan", "Bleeding heart", "Blephilia",
+        "Bluebell", "Borage", "Buddleja", "Carnation", "Chrysanthemum", "Clematis", "Coreopsis", "Cornflower", "Daffodil", "Dahlia",
+        "Daisy", "Echinacea", "Forget me not", "Foxglove", "Freesia", "Gardenia", "Gaura", "Geranium", "Gladiolus", "Hibiscus",
+        "Heather", "Hollyhock", "Hosta", "Hyacinth", "Hydrangea", "Iris", "Jasmine", "Larkspur", "Lavender", "Lilac",
+        "Lily", "Lobelia", "Marigold", "Morning glory", "Monkshood", "Narcissus", "Nasturtium", "Nicotiana", "Orchid", "Pansy",
+        "Passionflower", "Peony", "Petunia", "Phlox", "Poppy", "Primrose", "Ranunculus", "Rose", "Salvia", "Scabiosa",
+        "Snapdragon", "Snowdrop", "Statice", "Stock", "Streptocarpus", "Sunflower", "Sweet pea", "Thistle", "Tulip", "Verbena",
+        "Violet", "Wisteria", "Wildflower", "Yarrow", "Yellow archangel", "Yucca", "Zantedeschia", "Zinnia"
+    ]
+}

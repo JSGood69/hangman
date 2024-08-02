@@ -1,0 +1,17 @@
+{
+    "sports": [
+        "Baseball", "Basketball", "Boxing", "Cricket", "Cycling", "Diving", "Fencing", "Football", "Golf", "Gymnastics",
+        "Hockey", "Horse Racing", "Ice Skating", "Judo", "Karate", "Lacrosse", "Martial Arts", "Rowing", "Rugby", "Running",
+        "Sailing", "Shooting", "Skateboarding", "Skiing", "Soccer", "Softball", "Swimming", "Table Tennis", "Tennis", "Track and Field",
+        "Triathlon", "Volleyball", "Water Polo", "Weightlifting", "Wrestling", "Badminton", "Beach Volleyball", "Bobsledding", "Bowling", "Canoeing",
+        "Cross Country", "Crossfit", "Curling", "Dance", "Equestrian", "Fishing", "Handball", "Ice Hockey", "Luge", "Modern Pentathlon",
+        "Paddleboarding", "Parkour", "Roller Skating", "Synchronized Swimming", "Taekwondo", "Team Handball", "The Decathlon", "Track Cycling", "Trampoline", "Ultimate Frisbee",
+        "Archery", "Auto Racing", "Billiards", "Bodybuilding", "Bouldering", "Climbing", "Darts", "Disc Golf", "Downhill Skiing", "Frisbee",
+        "Go-Kart Racing", "Greyhound Racing", "Gymnastics", "Kickboxing", "Lawn Tennis", "Mixed Martial Arts", "Motocross", "Paintball", "Polo", "Powerlifting",
+        "Rock Climbing", "Snowboarding", "Squash", "Surfing", "Wakeboarding", "Water Skiing", "Windsurfing", "Wushu", "Yoga", "Zumba",
+        "Bike Racing", "Billiards", "Boxing", "Cricket", "Cycling", "Diving", "Fencing", "Football", "Golf", "Gymnastics",
+        "Hockey", "Horse Racing", "Ice Skating", "Judo", "Karate", "Lacrosse", "Martial Arts", "Rowing", "Rugby", "Running",
+        "Sailing", "Shooting", "Skateboarding", "Skiing", "Soccer", "Softball", "Swimming", "Table Tennis", "Tennis", "Track and Field",
+        "Triathlon", "Volleyball", "Water Polo", "Weightlifting", "Wrestling"
+    ]
+}
